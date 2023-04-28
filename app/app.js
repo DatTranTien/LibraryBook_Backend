@@ -1,6 +1,7 @@
 const express = require('express')
 const cors=require('cors')
 const userRouter = require('../router/userRouter')
+const connectDB = require('../db/db')
 
 const app= express()
 
@@ -34,5 +35,5 @@ app.use((error,req,res,next)=>{
         }
     })
 })
-
+connectDB()
 module.exports=app
