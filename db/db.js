@@ -1,5 +1,6 @@
 require('dotenv').config()
 const mongoose = require("mongoose")
+const userModel = require('../models/userModel')
 
 // note remove async if want not give error
 const connectDB =  () => {
@@ -11,4 +12,18 @@ const connectDB =  () => {
         process.exit()
     }
 }
-module.exports = connectDB
+
+const disconnect = ()=>{
+    mongoose.connection.close()
+}
+
+const findUser = async (obj)=>{
+    userModel.findOne(obj)
+}
+
+const saveUser=(newUser)=>{
+    return newUser.save()
+}
+
+
+module.exports = {connectDB,saveUser,findUser,disconnect}

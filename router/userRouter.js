@@ -1,57 +1,16 @@
 const express = require('express')
-const userRouter = express.Router()
+const { saveUser } = require('../db/db')
+const router = express.Router()
 
-userRouter.get('/',(req,res,next)=>{
-    res.status(200).json({
-        message:"Successful Call!",
-        metadata:{
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
+router.post('/register', (req,res,next)=>{
+    //find user
+    //if exist return response -> login
+    //else
+    //encrypt the password
 })
 
-userRouter.get('/:id',(req,res,next)=>{
-    res.status(200).json({
-        message:`Succcessful GET ${req.params.id}`,
-        metadata:{
-            hostname:req.hostname,
-            id:req.params.id,
-            method:req.method
-        }
-    })
+router.post("/login", (req,res)=>{
+    
 })
 
-userRouter.post('/',(req,res,next)=>{
-    const name = req.body.name
-    res.status(200).json({
-        message:"Sucessful - POST",
-        metadata:{
-            name:name,
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
-})
-
-userRouter.put("/:id",(req,res,next)=>{
-    res.status(200).json({
-        message:"Successful PUT",
-        metadata:{
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
-})
-
-userRouter.delete("/:id",(req,res,next)=>{
-    res.status(200).json({
-        message:"Successful DELETE",
-        metadata:{
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
-})
-
-module.exports = userRouter
+module.exports=router
