@@ -34,7 +34,7 @@ const findUser = async (obj)=>{
 }
 
 const saveUser=async (newUser)=>{
-    return await newUser
+    return await newUser.save()
     // return Promise.resolve({
     //     "firstName":"DAT",
     //     "lastName" : "Tran",
