@@ -2,6 +2,7 @@ const express = require('express')
 const cors=require('cors')
 const userRouter = require('../router/userRouter')
 const {connectDB} = require('../db/db')
+const bookRouter = require('../router/bookRouter')
 
 const app= express()
 
@@ -11,6 +12,7 @@ app.use(cors())
 
 //add router
 app.use('/user',userRouter)
+app.use('/books',bookRouter)
 
 
 app.get('/',(req,res,next)=>{

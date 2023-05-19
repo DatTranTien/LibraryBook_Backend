@@ -1,17 +1,20 @@
 const express = require('express')
-const userRouter = express.Router()
+const { getAllBooks, getBookById, updateBookService, deleteBookService } = require('../services/bookService')
+const bookRouter = express.Router()
 
-userRouter.get('/',(req,res,next)=>{
-    res.status(200).json({
-        message:"Successful Call!",
-        metadata:{
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
-})
+// (req,res,next)=>{
+//     res.status(200).json({
+//         message:"Successful Call!",
+//         metadata:{
+//             hostname:req.hostname,
+//             method:req.method
+//         }
+//     })
+// }
+bookRouter.get('/',getAllBooks)
 
-userRouter.get('/:id',(req,res,next)=>{
+
+bookRouter.get('/:id',(req,res,next)=>{
     res.status(200).json({
         message:`Succcessful GET ${req.params.id}`,
         metadata:{
@@ -21,8 +24,19 @@ userRouter.get('/:id',(req,res,next)=>{
         }
     })
 })
+// (req,res,next)=>{
+//     res.status(200).json({
+//         message:`Succcessful GET by ID`,
+//         metadata:{
+//             hostname:req.hostname,
+//             id:req.params.id,
+//             method:req.method
+//         }
+//     })
+// }
+bookRouter.get('/:bookId',getBookById)
 
-userRouter.post('/',(req,res,next)=>{
+bookRouter.post('/',(req,res,next)=>{
     const name = req.body.name
     res.status(200).json({
         message:"Sucessful - POST",
@@ -33,25 +47,25 @@ userRouter.post('/',(req,res,next)=>{
         }
     })
 })
+// (req,res,next)=>{
+//     res.status(200).json({
+//         message:"Successful PUT",
+//         metadata:{
+//             hostname:req.hostname,
+//             method:req.method
+//         }
+//     })
+// }
+bookRouter.put("/:bookId",updateBookService)
+// (req,res,next)=>{
+//     res.status(200).json({
+//         message:"Successful DELETE",
+//         metadata:{
+//             hostname:req.hostname,
+//             method:req.method
+//         }
+//     })
+// }
+bookRouter.delete("/:bookId",deleteBookService)
 
-userRouter.put("/:id",(req,res,next)=>{
-    res.status(200).json({
-        message:"Successful PUT",
-        metadata:{
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
-})
-
-userRouter.delete("/:id",(req,res,next)=>{
-    res.status(200).json({
-        message:"Successful DELETE",
-        metadata:{
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
-})
-
-module.exports = userRouter
+module.exports = bookRouter
