@@ -1,4 +1,5 @@
 const express = require('express')
+const authorization = require('../auth/authorization')
 const { getAllBooks, getBookById, updateBookService, deleteBookService } = require('../services/bookService')
 const bookRouter = express.Router()
 
@@ -11,7 +12,7 @@ const bookRouter = express.Router()
 //         }
 //     })
 // }
-bookRouter.get('/',getAllBooks)
+bookRouter.get('/',[authorization,getAllBooks])
 
 
 bookRouter.get('/:id',(req,res,next)=>{
@@ -34,9 +35,9 @@ bookRouter.get('/:id',(req,res,next)=>{
 //         }
 //     })
 // }
-bookRouter.get('/:bookId',getBookById)
+bookRouter.get('/:bookId',[authorization,getBookById])
 
-bookRouter.post('/',(req,res,next)=>{
+bookRouter.post('/',[authorization,(req,res,next)=>{
     const name = req.body.name
     res.status(200).json({
         message:"Sucessful - POST",
@@ -46,7 +47,7 @@ bookRouter.post('/',(req,res,next)=>{
             method:req.method
         }
     })
-})
+}])
 // (req,res,next)=>{
 //     res.status(200).json({
 //         message:"Successful PUT",
@@ -56,7 +57,7 @@ bookRouter.post('/',(req,res,next)=>{
 //         }
 //     })
 // }
-bookRouter.put("/:bookId",updateBookService)
+bookRouter.put("/:bookId",[authorization,updateBookService])
 // (req,res,next)=>{
 //     res.status(200).json({
 //         message:"Successful DELETE",
@@ -66,6 +67,6 @@ bookRouter.put("/:bookId",updateBookService)
 //         }
 //     })
 // }
-bookRouter.delete("/:bookId",deleteBookService)
+bookRouter.delete("/:bookId",[authorization,deleteBookService])
 
 module.exports = bookRouter

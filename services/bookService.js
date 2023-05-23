@@ -41,7 +41,8 @@ exports.postBook =  async (req,res)=>{
             })
              newBook=Object.assign(newBook,req.body)
             const savedBook = await saveBook(newBook)
-            successTemplate(res,saveBook,messages.book_saved,200)
+            console.log("check savedBook",savedBook)
+            successTemplate(res,savedBook,messages.book_saved,200)
         }
     } catch (e) {
         return errorTemplate(res,e,e.message, 500)

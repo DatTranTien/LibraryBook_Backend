@@ -8,4 +8,15 @@ exports.messages={
     book_not_updated:'Book have not updated',
     book_not_deleted:'Book have not deleted',
     book_deleted:'Book already deleted',
+    author_exist:'Author exist',
+    author_saved:'Author saved',
+    author_found:'Author found',
+    author_not_found:'Author not found',
+    authors_found:'Authors found',
+    authors_not_found:'Authors not found',
+    author_update:'Authors update',
+    author_not_update:'Authors not update',
+    author_delete:'Authors delete',
+    author_not_delete:'Authors not delete',
+    auth_failed: 'auth failed'
 }

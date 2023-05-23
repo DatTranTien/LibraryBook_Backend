@@ -3,6 +3,9 @@ const cors=require('cors')
 const userRouter = require('../router/userRouter')
 const {connectDB} = require('../db/db')
 const bookRouter = require('../router/bookRouter')
+const authorRouter = require('../router/authorRouter')
+const swaggerUi = require('swagger-ui-express');
+const document = require("../config/swaggerOptions.json")
 
 const app= express()
 
@@ -13,7 +16,10 @@ app.use(cors())
 //add router
 app.use('/user',userRouter)
 app.use('/books',bookRouter)
+app.use('/authors',authorRouter)
 
+//use middleware for api-docs swagger
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(document))
 
 app.get('/',(req,res,next)=>{
     res.status(200).json({message:"Call thanh cong!"})
