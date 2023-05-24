@@ -16,6 +16,17 @@ exports.getAllBooks =  async (req,res)=>{
         return errorTemplate(res,e,e.message, 500)
     }
 }
+exports.getAllBookIds =  async (req,res)=>{
+    try {
+        const books = await findBooks({},'title')
+        return res.status(200).json({
+            message: messages.books_found,
+            result: books
+        })
+    } catch (e) {
+        return errorTemplate(res,e,e.message, 500)
+    }
+}
 exports.getBookById =  async (req,res)=>{
     try {
         console.log("req.params.bookId===>",req.params.bookId)

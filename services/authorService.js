@@ -1,4 +1,4 @@
-const { findAuthorById, saveAuthor, findAuthors, updateAuthor } = require("../db/authorDb")
+const { findAuthorById, saveAuthor, findAuthors, updateAuthor, deleteAuthorDB } = require("../db/authorDb")
 const { messages } = require("../messages/messages")
 const Author = require("../models/authorModel")
 const errorTemplate = require("../templates/errorTemplate")
@@ -16,7 +16,7 @@ exports.postAuthor = async(req,res)=>{
         if (author) {
             throw new Error(messages.author_exist)
         } else {
-            console.log("1111===>")
+            console.log("1111===>",req.body)
             const newAuthor = new Author({
                 _id: new mongoose.Types.ObjectId(),
                 // book:new mongoose.Types.ObjectId(),
@@ -24,6 +24,7 @@ exports.postAuthor = async(req,res)=>{
             console.log("2newAuthor===>",newAuthor)
             const assignedAuthor = await Object.assign(newAuthor,req.body)
             console.log('3assignedAuthor:',assignedAuthor)
+            console.log("sau 3===>",req.body)
             const savedAuthor = await saveAuthor(assignedAuthor)
             console.log("4savedAuthor",savedAuthor)
             return successTemplate(res,savedAuthor,messages.author_saved,201)
@@ -79,7 +80,7 @@ exports.patchAuthor = async(req,res)=>{
 exports.deleteAuthor = async(req,res)=>{
     try {
         const id = await req.params.authorId
-        const result = await this.deleteAuthor({_id:id})
+        const result = await deleteAuthorDB({_id:id})
         return successTemplate(res,result, messages.author_delete,200)
         // } else {
         //     throw new Error(messages.author_not_found)

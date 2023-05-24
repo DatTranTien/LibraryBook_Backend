@@ -1,6 +1,6 @@
 const express = require('express')
 const authorization = require('../auth/authorization')
-const { getAllBooks, getBookById, updateBookService, deleteBookService, postBook } = require('../services/bookService')
+const { getAllBooks, getBookById, updateBookService, deleteBookService, postBook, getAllBookIds } = require('../services/bookService')
 const bookRouter = express.Router()
 
 // (req,res,next)=>{
@@ -14,7 +14,7 @@ const bookRouter = express.Router()
 // }
 bookRouter.get('/',[authorization,getAllBooks])
 
-
+bookRouter.get('/books',[authorization,getAllBookIds])
 // bookRouter.get('/:id',(req,res,next)=>{
 //     res.status(200).json({
 //         message:`Succcessful GET ${req.params.id}`,

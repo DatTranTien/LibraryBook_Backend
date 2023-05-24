@@ -14,6 +14,6 @@ exports.saveAuthor=async(newAuthor)=>{
 exports.updateAuthor=async(fillter, update)=>{
     return await Author.updateOne(fillter,update,{new:true}).exec()
 }
-exports.deleteAuthor=async(obj)=>{
+exports.deleteAuthorDB=async(obj)=>{
     return await Author.deleteOne(obj).exec()
 }
