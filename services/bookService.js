@@ -18,7 +18,9 @@ exports.getAllBooks =  async (req,res)=>{
 }
 exports.getBookById =  async (req,res)=>{
     try {
-        const book = await findBooks({_id:req.params.bookId},'-__v')
+        console.log("req.params.bookId===>",req.params.bookId)
+        const book = await findBook({_id:req.params.bookId},'-__v')
+        console.log("boook=====>",book)
         if (!book) {
             throw new Error(messages.book_not_found)
         } else {
@@ -33,13 +35,16 @@ exports.postBook =  async (req,res)=>{
         const bookStub = new bookModel()
         const foundBook = Object.assign(bookStub,req.body)
         const book = await findBook(foundBook)
+        console.log("check 1 book",book)
         if (book) {
             throw new Error(messages.book_cataloged)
         } else {
-            let newBook = new book({
-                _id:mongoose.Types.ObjectId(),
+            let newBook = new bookModel({
+                _id:new mongoose.Types.ObjectId(),
             })
+            
              newBook=Object.assign(newBook,req.body)
+             console.log("check 1 ")
             const savedBook = await saveBook(newBook)
             console.log("check savedBook",savedBook)
             successTemplate(res,savedBook,messages.book_saved,200)
@@ -51,6 +56,7 @@ exports.postBook =  async (req,res)=>{
 exports.updateBookService =  async (req,res)=>{
     try {
         const bookStub = new bookModel()
+        const id = req.params.bookId;
         const update = Object.assign(bookStub,req.body)
         const result = await updateBook({_id: id},update)
         return successTemplate(res,result,messages.book_updated,200)

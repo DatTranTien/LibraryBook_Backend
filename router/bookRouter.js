@@ -1,6 +1,6 @@
 const express = require('express')
 const authorization = require('../auth/authorization')
-const { getAllBooks, getBookById, updateBookService, deleteBookService } = require('../services/bookService')
+const { getAllBooks, getBookById, updateBookService, deleteBookService, postBook } = require('../services/bookService')
 const bookRouter = express.Router()
 
 // (req,res,next)=>{
@@ -15,16 +15,16 @@ const bookRouter = express.Router()
 bookRouter.get('/',[authorization,getAllBooks])
 
 
-bookRouter.get('/:id',(req,res,next)=>{
-    res.status(200).json({
-        message:`Succcessful GET ${req.params.id}`,
-        metadata:{
-            hostname:req.hostname,
-            id:req.params.id,
-            method:req.method
-        }
-    })
-})
+// bookRouter.get('/:id',(req,res,next)=>{
+//     res.status(200).json({
+//         message:`Succcessful GET ${req.params.id}`,
+//         metadata:{
+//             hostname:req.hostname,
+//             id:req.params.id,
+//             method:req.method
+//         }
+//     })
+// })
 // (req,res,next)=>{
 //     res.status(200).json({
 //         message:`Succcessful GET by ID`,
@@ -37,17 +37,7 @@ bookRouter.get('/:id',(req,res,next)=>{
 // }
 bookRouter.get('/:bookId',[authorization,getBookById])
 
-bookRouter.post('/',[authorization,(req,res,next)=>{
-    const name = req.body.name
-    res.status(200).json({
-        message:"Sucessful - POST",
-        metadata:{
-            name:name,
-            hostname:req.hostname,
-            method:req.method
-        }
-    })
-}])
+bookRouter.post('/',[authorization,postBook])
 // (req,res,next)=>{
 //     res.status(200).json({
 //         message:"Successful PUT",
@@ -67,6 +57,6 @@ bookRouter.put("/:bookId",[authorization,updateBookService])
 //         }
 //     })
 // }
-bookRouter.delete("/:bookId",[authorization,deleteBookService])
+bookRouter.delete("/delete/:bookId",[authorization,deleteBookService])
 
 module.exports = bookRouter
